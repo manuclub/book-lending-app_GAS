@@ -1,0 +1,208 @@
+<!-- Stylesheet.html -->
+<style>
+:root {
+  --primary-color: #2c3e50;  /* ダークブルー */
+  --primary-light: #34495e;  /* 少し明るめのダークブルー */
+  --primary-dark: #1c2833;   /* より暗いダークブルー */
+  --accent-color: #d4af37;   /* ゴールド */
+  --text-color: #ecf0f1;     /* 明るいグレー */
+  --background-color: #1c1c1c;  /* ダークグレー */
+  --card-color: #2c3e50;     /* ダークブルー */
+  --shadow-color: rgba(0, 0, 0, 0.6);  /* より濃い影 */
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--card-color); /* カード風の背景色 */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+}
+
+h1 {
+  color: var(--accent-color); /* ゴールド */
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 10px;
+}
+
+#mainMenu {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+button {
+  background-color: var(--primary-color);
+  color: black; /* 初期画面のボタンの文字色を黒に設定 */
+  border: 1px solid var(--accent-color); /* ゴールドの境界線 */
+  padding: 10px 20px;
+  height: 40px; /* ボタンの高さを指定 */
+  line-height: 20px; /* ボタンの高さに合わせて位置を調整 */
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.1s;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  text-align: center;
+  vertical-align: middle;
+}
+
+button:hover {
+  background-color: var(--primary-light); /* 明るいバージョンのプライマリカラー */
+}
+
+button:active {
+  transform: translateY(2px);
+}
+
+#bookList {
+  background-color: var(--card-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-color);  /* テーブルの文字色も白に */
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+  border-bottom: 1px solid var(--primary-light); /* テーブルの線をシックな色に */
+}
+
+th {
+  background-color: var(--primary-dark); /* より暗い背景色 */
+  color: var(--accent-color);  /* ゴールドの文字 */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+  background-color: var(--primary-color);
+}
+
+tr:hover {
+  background-color: var(--primary-light);
+}
+
+#searchForm {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  flex-grow: 1;
+  padding: 20px;
+  font-size: 1em;
+  border: 1px solid var(--primary-light); /* シックなボーダー */
+  border-radius: 4px 0 0 4px;
+  background-color: var(--background-color); /* ダークグレー背景 */
+  color: var(--text-color); /* 入力文字色 */
+}
+
+#searchForm button {
+  border-radius: 0 4px 4px 0;
+  background-color: var(--accent-color); /* ゴールドの背景色 */
+  color: var(--primary-dark); /* ダークな文字色 */
+}
+
+.action-button {
+  background-color: var(--accent-color); /* ゴールドのボタン */
+  color: var(--primary-dark);  /* ダークブルーの文字色 */
+  border: none;
+  padding: 10px 20px;  /* 十分な余白を確保 */
+  font-size: 1em;
+  height: 40px; /* ボタンの高さを指定 */
+  line-height: 20px; /* ボタンの高さに合わせて文字の位置を設定 */
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 8px;
+}
+
+.action-button:hover {
+  background-color: var(--primary-light);
+}
+
+#pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+#pagination button {
+  background-color: var(--primary-dark); /* ダーク背景のボタン */
+  color: var(--accent-color); /* ゴールドの文字色 */
+  border: 1px solid var(--accent-color); /* ゴールドのボーダー */
+  padding: 8px 12px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 4px;
+}
+
+#pagination button:hover {
+  background-color: var(--primary-light);
+}
+
+.back-to-main {
+  display: block;
+  margin: 20px auto;
+  background-color: var(--primary-color);
+  color: var(--primary-dark); /* テキスト色を黒に */
+  border: 1px solid var(--accent-color); /* ボーダーをゴールドに */
+  padding: 12px 24px;
+  font-size: 1.1em;
+  cursor: pointer;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  height: 40px; /* ボタンの高さを指定 */
+  line-height: 20px; /* ボタンの高さに合わせて文字の位置を設定 */
+}
+
+.back-to-main:hover {
+  background-color: var(--primary-light);
+}
+
+@media (max-width: 600px) {
+  .container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  #mainMenu {
+    flex-direction: column;
+  }
+
+  button {
+    margin-bottom: 10px;
+  }
+
+  th, td {
+    padding: 12px 8px;
+  }
+}
+
+</style>

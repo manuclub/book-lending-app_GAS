@@ -1,0 +1,120 @@
+<!-- JavaScript.html -->
+<script>
+let currentBooks = [];
+let currentPage = 1;
+const booksPerPage = 5;
+
+function showReturnList() {
+  google.script.run.withSuccessHandler(function(books) {
+    currentBooks = books;
+    displayBooks(1);
+  }).getBorrowedBooks();
+  document.getElementById('mainMenu').style.display = 'none';
+  document.getElementById('searchForm').style.display = 'none';
+  document.getElementById('bookList').style.display = 'block';
+  document.getElementById('pagination').style.display = 'block';
+}
+
+function showBorrowList() {
+  google.script.run.withSuccessHandler(function(books) {
+    currentBooks = books;
+    displayBooks(1);
+  }).getAvailableBooks();
+  document.getElementById('mainMenu').style.display = 'none';
+  document.getElementById('searchForm').style.display = 'none';
+  document.getElementById('bookList').style.display = 'block';
+  document.getElementById('pagination').style.display = 'block';
+}
+
+function showSearchForm() {
+  document.getElementById('mainMenu').style.display = 'none';
+  document.getElementById('bookList').style.display = 'none';
+  document.getElementById('pagination').style.display = 'none';
+  document.getElementById('searchForm').style.display = 'flex';
+}
+
+function displayBooks(page) {
+  currentPage = page;
+  const startIndex = (page - 1) * booksPerPage;
+  const endIndex = startIndex + booksPerPage;
+  const booksToDisplay = currentBooks.slice(startIndex, endIndex);
+
+  var bookListHtml = '<table><tr><th>書籍名</th><th>書籍コード</th><th>貸出ステータス</th><th>操作</th></tr>';
+  booksToDisplay.forEach(function(book) {
+    bookListHtml += '<tr>';
+    bookListHtml += '<td>' + book.name + '</td>';
+    bookListHtml += '<td>' + book.code + '</td>';
+    bookListHtml += '<td>' + book.status + '</td>';
+    bookListHtml += '<td>';
+    if (book.status === '貸出可') {
+      bookListHtml += '<button class="action-button" onclick="confirmBorrow(\'' + book.code + '\', \'' + book.name + '\')">借りる</button>';
+    } else if (book.status === '貸出中') {
+      bookListHtml += '<button class="action-button" onclick="confirmReturn(\'' + book.code + '\', \'' + book.name + '\')">返却</button>';
+    }
+    bookListHtml += '</td></tr>';
+  });
+  bookListHtml += '</table>';
+  bookListHtml += '<button class="back-to-main" onclick="backToMainMenu()">メインメニューに戻る</button>';
+  document.getElementById('bookList').innerHTML = bookListHtml;
+
+  displayPagination();
+}
+
+function displayPagination() {
+  const totalPages = Math.ceil(currentBooks.length / booksPerPage);
+  let paginationHtml = '';
+
+  if (currentPage > 1) {
+    paginationHtml += '<button onclick="displayBooks(' + (currentPage - 1) + ')">前へ</button>';
+  }
+
+  paginationHtml += ' ページ ' + currentPage + ' / ' + totalPages + ' ';
+
+  if (currentPage < totalPages) {
+    paginationHtml += '<button onclick="displayBooks(' + (currentPage + 1) + ')">次へ</button>';
+  }
+
+  document.getElementById('pagination').innerHTML = paginationHtml;
+}
+
+function confirmBorrow(bookCode, bookName) {
+  if (confirm('借りる書籍にお間違えありませんか？\n\n書籍名: ' + bookName + '\n書籍コード: ' + bookCode)) {
+    google.script.run.withSuccessHandler(function(result) {
+      alert(result);
+      showBorrowList();
+    }).borrowBook(bookCode);
+  }
+}
+
+function confirmReturn(bookCode, bookName) {
+  if (confirm('返却する書籍にお間違えありませんか？\n\n書籍名: ' + bookName + '\n書籍コード: ' + bookCode)) {
+    google.script.run.withSuccessHandler(function(result) {
+      alert(result);
+      showReturnList();
+    }).returnBook(bookCode);
+  }
+}
+
+function searchBooks() {
+  var keyword = document.getElementById('searchKeyword').value;
+  google.script.run.withSuccessHandler(function(results) {
+    if (results.length === 0) {
+      alert('検索していただいた書籍はありません。ご自分で購入されるか担当者にご相談ください');
+      backToMainMenu();
+    } else {
+      currentBooks = results;
+      displayBooks(1);
+      document.getElementById('bookList').style.display = 'block';
+      document.getElementById('pagination').style.display = 'block';
+      document.getElementById('searchForm').style.display = 'none';
+    }
+  }).searchBooks(keyword);
+}
+
+function backToMainMenu() {
+  document.getElementById('mainMenu').style.display = 'flex';
+  document.getElementById('bookList').style.display = 'none';
+  document.getElementById('pagination').style.display = 'none';
+  document.getElementById('searchForm').style.display = 'none';
+}
+</script>

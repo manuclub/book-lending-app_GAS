@@ -1,0 +1,28 @@
+<!-- Index.html -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <?!= include('Stylesheet'); ?>
+  </head>
+  <body>
+    <div class="container">
+      <h1>本の貸出アプリ</h1>
+      <div id="mainMenu">
+        <button onclick="showReturnList()">返却</button>
+        <button onclick="showBorrowList()">借りる</button>
+        <button onclick="showSearchForm()">書籍検索</button>
+      </div>
+      <div id="bookList" style="display:none;"></div>
+      <div id="pagination" style="display:none;"></div>
+      <div id="searchForm" style="display:none;">
+        <input type="text" id="searchKeyword" placeholder="書籍名を入力">
+        <button onclick="searchBooks()">検索</button>
+      </div>
+    </div>
+    <?!= include('JavaScript'); ?>
+  </body>
+</html>
